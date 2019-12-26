@@ -1,0 +1,3 @@
+﻿  1_cars.cpp
+C:\Users\Oxana\Documents\GitHub\C-parallel\1_cars\1_cars\1_cars.cpp(46,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  1_cars.vcxproj -> C:\Users\Oxana\Documents\GitHub\C-parallel\1_cars\Debug\1_cars.exe
