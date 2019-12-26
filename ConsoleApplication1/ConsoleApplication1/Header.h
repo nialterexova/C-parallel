@@ -1,7 +1,8 @@
 #include <iostream>
 #include <omp.h>
-#include <vector>
+#include <fstream>
 #include <math.h>
+#include <string>
 using namespace std;
 
 const int count_parallel = 5;
@@ -16,10 +17,10 @@ const int Nt = 101;	// число узлов по t
 
 const double U0 = 0;	// c(t=0,x,y)
 
-const int type[4] = { 1, 2, 1, 2 };	// род граничных условий
-const double U[4] = { 1, 0, 1, 0 };	// массив граничных условий (a, b, c, d)
+const int type[4] = { 1, 2, 1, 2 };	// род граничных условий {1;2}
+const double f[4] = { 1, 0, 1, 0 };	// массив граничных условий (a, b, c, d)
 
-const double k = 0.01;
+const double K = 0.01;
 const double D = 0.000001;	
 const double Vx = 0.1;
 const double Vy = 0.1;
