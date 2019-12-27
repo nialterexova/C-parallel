@@ -45,8 +45,8 @@ int main()
 
 	print(0, U);
 
-	for (int n = 0; n < Nt; n++) {
-		for (int k = 1; k < Ny - 1; k++) {
+	for (int n = 0; n < Nt-1; n++) {
+		for (int k = 0; k < Ny ; k++) {
 			double alpha[Nx - 1];
 			double beta[Nx - 1];
 
@@ -74,9 +74,12 @@ int main()
 			for (int j = Nx-2; j >= 0 ; j--) {
 				U05[j][k] = alpha[j] * U05[j + 1][k] + beta[j];
 			}
+
 		}
 
-		for (int j = 1; j < Nx - 1; j++) {
+		print((n+0.5) * ht, U05);
+
+		for (int j = 0; j < Nx; j++) {
 			double alpha[Ny - 1];
 			double beta[Ny - 1];
 
@@ -90,10 +93,10 @@ int main()
 			}
 
 			for (int k = 1; k < Nx - 1; k++) {
-				double a = -D * ht / (hx * hx);
-				double b = 1 + Vx * ht / hx + 2 * D * ht / (hx * hx) + K * ht;
-				double c = -Vx * ht / hx + a;
-				double E = U[j][k];
+				double a = - Vy * ht / hy - D * ht / (hy * hy);
+				double b = 1 + Vy * ht / hy + 2 * D * ht / (hy * hy);
+				double c = -D * ht / (hy * hy);
+				double E = U05[j][k];
 
 				alpha[k] = -a / (b + c * alpha[k - 1]);
 				beta[k] = (E - c * beta[k - 1]) / (b + c * alpha[k - 1]);
@@ -104,6 +107,7 @@ int main()
 			for (int k = Ny - 2; k >= 0; k--) {
 				U1[j][k] = alpha[k] * U1[j][k+1] + beta[k];
 			}
+
 		}
 		
 		print((n + 1)*ht, U1);
