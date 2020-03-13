@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-const int count_parallel = 5;
+const int count_parallel = 1;
 
 const double X = 0.7;	// [a;b] = [0;X]
 const double Y = 0.7;	// [c;d] = [0;Y]

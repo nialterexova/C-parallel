@@ -1,2 +1,8 @@
 ﻿  4-cards.cpp
-  4-cards.vcxproj -> C:\Users\Oxana\Documents\GitHub\C-parallel\4-cards\Debug\4-cards.exe
+C:\Users\Oxana\Documents\GitHub\C-parallel\4-cards\4-cards\4-cards.cpp(19,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\Oxana\Documents\GitHub\C-parallel\4-cards\4-cards\4-cards.cpp(25,51): error C2872: count: неоднозначный символ
+C:\Users\Oxana\Documents\GitHub\C-parallel\4-cards\4-cards\4-cards.cpp(15,5): message : может быть "int count"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xutility(2845,32): message : или       "iterator_traits<_Iter>::difference_type std::count(const _InIt,const _InIt,const _Ty &)"
+C:\Users\Oxana\Documents\GitHub\C-parallel\4-cards\4-cards\4-cards.cpp(32,10): error C2872: count: неоднозначный символ
+C:\Users\Oxana\Documents\GitHub\C-parallel\4-cards\4-cards\4-cards.cpp(15,5): message : может быть "int count"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xutility(2845,32): message : или       "iterator_traits<_Iter>::difference_type std::count(const _InIt,const _InIt,const _Ty &)"

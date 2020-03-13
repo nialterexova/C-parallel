@@ -12,25 +12,50 @@
 
 using namespace std;
 
+int count = 5;
+
 int main()
 {
-	omp_nest_lock_t lock;
+	srand(time(NULL));
+	int people = rand() % 10;
+	int sl;
 
-	omp_init_nest_lock(&lock);
-#pragma omp parallel num_threads(5)
+
+
+#pragma omp parallel sections firstprivate(count)
 	{
-
-#pragma omp parallel num_threads(2)
+#pragma omp section 
 		{
-			printf("Wait..., thread %d\n", omp_get_thread_num());
-			Sleep(3);
-
+			for (int i = 0; i < 200; i++) {
+				sl = rand() % 5000;
+				Sleep(sl);
+				count--;
+			}
 		}
-		printf("Begin work, thread %d\n", omp_get_thread_num());
-		Sleep(5); // Work...
-		printf("End work, thread %d\n", omp_get_thread_num());
-		omp_unset_nest_lock(&lock);
+#pragma omp section
+		{
+			printf("T%d: bar\n", omp_get_thread_num());
+		}
 	}
-	omp_destroy_nest_lock(&lock);
 
+//	omp_nest_lock_t lock;
+	//omp_init_nest_lock(&lock);
+//#pragma omp parallel num_threads(5)
+//	{
+//		
+//#pragma omp parallel num_threads(200)
+//		{
+//			printf("Wait..., thread %d\n", omp_get_thread_num());
+//			Sleep(2);
+//			
+//		}
+//		
+//		omp_set_nest_lock(&lock);
+//		printf("Begin work, thread %d\n", omp_get_thread_num());
+//		Sleep(2000); // Work...
+//		printf("End work, thread %d\n", omp_get_thread_num());
+//		omp_unset_nest_lock(&lock);
+//	}
+//	omp_destroy_nest_lock(&lock);
+//
 }

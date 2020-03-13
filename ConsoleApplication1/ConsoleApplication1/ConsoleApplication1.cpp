@@ -1,6 +1,10 @@
 ﻿
 #include "Header.h"
 
+double U[Nx][Ny];	// массив решений n
+double U05[Nx][Ny];	// массив решений n+0.5
+double U1[Nx][Ny];	// массив решений n+1
+
 void print(double t, double U[Nx][Ny]) {
 	ofstream fout;
 	string name = "t=" + to_string(t);
@@ -17,22 +21,24 @@ void print(double t, double U[Nx][Ny]) {
 
 int main()
 {
-	double U[Nx][Ny];	// массив решений n
-	double U05[Nx][Ny];	// массив решений n+0.5
-	double U1[Nx][Ny];	// массив решений n+1
-
+	double start = omp_get_wtime();
 	double x[Nx];	// массив значений х
 	double hx = (X / (Nx - 1)); // шаг по х
+#pragma omp parallel for schedule(dynamic) num_threads(count_parallel)
 	for (int i = 0; i < Nx; i++) {
 		x[i] = i * hx;
 	}
+
 	double y[Ny];	// массив значений y
 	double hy = (Y / (Ny - 1)); // шаг по y
+#pragma omp parallel for schedule(dynamic) num_threads(count_parallel)
 	for (int i = 0; i < Ny; i++) {
 		y[i] = i * hy;
 	}
+
 	double t[Nt];	// массив значений y
 	double ht = (T / (Nt - 1)); // шаг по t
+#pragma omp parallel for schedule(dynamic) num_threads(count_parallel)
 	for (int i = 0; i < Nt; i++) {
 		t[i] = i * ht;
 	}
@@ -46,6 +52,7 @@ int main()
 	print(0, U);
 
 	for (int n = 0; n < Nt-1; n++) {
+#pragma omp parallel for schedule(dynamic) num_threads(count_parallel)
 		for (int k = 0; k < Ny ; k++) {
 			double alpha[Nx - 1];
 			double beta[Nx - 1];
@@ -79,6 +86,7 @@ int main()
 
 		print((n+0.5) * ht, U05);
 
+#pragma omp parallel for schedule(dynamic) num_threads(count_parallel)
 		for (int j = 0; j < Nx; j++) {
 			double alpha[Ny - 1];
 			double beta[Ny - 1];
@@ -111,6 +119,8 @@ int main()
 		}
 		
 		print((n + 1)*ht, U1);
+
+#pragma omp parallel for schedule(dynamic) num_threads(count_parallel)
 		for (int i = 0; i < Nx;  i++) {
 			for (int j = 0; j < Ny; j++) {
 				U[i][j] = U1[i][j];
@@ -118,7 +128,8 @@ int main()
 		}
 	}
 
-
+	double end = omp_get_wtime();
+	cout << end - start << endl;
 
 	return 0;
 }
